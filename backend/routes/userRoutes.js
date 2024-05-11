@@ -6,6 +6,9 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 const client = require("../config/db");
 
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+
 router.get("/users", async (req, res) => {
   try {
     const data = await client
@@ -22,12 +25,23 @@ router.get("/users", async (req, res) => {
 // register
 router.post("/user/register", async (req, res) => {
   try {
-    const newDoc = req.body;
-    const data = await client
-      .db("selfnote")
-      .collection("users")
-      .insertOne(newDoc);
-    res.send(data);
+    const password = req.body.password;
+    bcrypt.hash(password, saltRounds, async function (err, hash) {
+      if (err) {
+        console.log(err);
+      }
+      const newDoc = {
+        name: req.body.name,
+        email: req.body.email,
+        password: hash,
+      };
+
+      const data = await client
+        .db("selfnote")
+        .collection("users")
+        .insertOne(newDoc);
+      res.send(data);
+    });
   } catch (err) {
     res.status(500).send({ err });
   }
@@ -50,13 +64,20 @@ router.post("/user/login", async (req, res) => {
       { expiresIn: "3600000" }
     );
 
-    if (data.password != req.body.password) {
-      res.status(400).send("Wrong login info pass");
-    } else {
-      res.send({ email: data.email, token: jwtToken });
-    }
+    const test = bcrypt.compare(
+      req.body.password,
+      data.password,
+      (err, response) => {
+        if (err) {
+          return res.status(400).send("Somwhere Error inside");
+        }
+        if (response) {
+          res.send({ _id: data._id, token: jwtToken });
+        }
+      }
+    );
   } catch (err) {
-    res.status(400).send("Wrong login info email");
+    res.status(400).send("Somwhere Error inside");
   }
 });
 

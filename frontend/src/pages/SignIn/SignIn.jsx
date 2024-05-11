@@ -23,19 +23,18 @@ export default function SignIn() {
     const value = { email: data.get("email"), password: data.get("password") };
 
     const response = await loginUser(value);
+    // console.log(response);
     if (response) {
       const random = signIn({
         auth: {
           token: response.token,
           type: "Bearer",
         },
-        userState: response.email,
+        userState: response._id,
       });
-
-      console.log(random);
     }
 
-    console.log(response);
+    // console.log(response);
     if (response) {
       navigate("/");
     }
@@ -68,7 +67,7 @@ export default function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
-            value="random@gmail.com"
+            value="r@gmail.com"
           />
           <TextField
             margin="normal"
@@ -76,10 +75,11 @@ export default function SignIn() {
             fullWidth
             name="password"
             label="Password"
-            type="password"
+            // type="password"
+            type="text"
             id="password"
             autoComplete="current-password"
-            value="password"
+            value="a"
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
