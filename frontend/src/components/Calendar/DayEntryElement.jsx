@@ -5,11 +5,11 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import FolderIcon from "@mui/icons-material/Folder";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { deleteTaskV2 } from "../../api/calendar";
+import { deleteTask } from "../../api/calendar";
 
 const DayEntryElement = ({ props, reload }) => {
   const deleteEntry = async (taskId) => {
-    await deleteTaskV2(taskId);
+    await deleteTask(taskId);
     reload();
   };
 

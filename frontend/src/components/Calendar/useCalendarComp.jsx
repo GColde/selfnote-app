@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getHighlitedDaysV2, getDayTasksV2 } from "../../api/calendar";
+import { getHighlitedDays, getDayTasks } from "../../api/calendar";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 const useCalendarComp = () => {
@@ -13,6 +13,8 @@ const useCalendarComp = () => {
 
   const userId = useAuthUser();
 
+  //used
+
   const onReload = async (e) => {
     const year = e.getFullYear();
     const month = e.toLocaleString("default", {
@@ -20,26 +22,24 @@ const useCalendarComp = () => {
     });
     const day = e.getDate();
 
-    const reloadMonthValueV2 = {
+    const reloadMonthValue = {
       userId: userId,
       year: year,
       month: month,
     };
 
-    const reloadDayValueV2 = {
+    const reloadDayValue = {
       userId: userId,
       year: year,
       month: month,
       day: day,
     };
 
-    const reloadDay = await getDayTasksV2(reloadDayValueV2);
-    setExercises(reloadDay);
-
-    const reloadMonth = await getHighlitedDaysV2(reloadMonthValueV2);
+    const reloadMonth = await getHighlitedDays(reloadMonthValue);
     setHighlightedDays(reloadMonth);
 
-    console.log(reloadDay);
+    const reloadDay = await getDayTasks(reloadDayValue);
+    setExercises(reloadDay);
 
     // settinu value kad po deleteinimo reloado nenumestu atgal i siandienos data
     // setValue(e);
@@ -52,15 +52,15 @@ const useCalendarComp = () => {
     });
     const day = e.getDate();
 
-    const sendValueV2 = {
+    const reloadDayValue = {
       userId: userId,
       year: year,
       month: month,
       day: day,
     };
 
-    const getDayTasks = await getDayTasksV2(sendValueV2);
-    setExercises(getDayTasks);
+    const reloadDay = await getDayTasks(reloadDayValue);
+    setExercises(reloadDay);
 
     // settinu value kad po deleteinimo reloado nenumestu atgal i siandienos data
     setValue(e);
@@ -71,15 +71,14 @@ const useCalendarComp = () => {
     const month = e.toLocaleString("default", {
       month: "short",
     });
-    console.log(month);
 
-    const sendValueV2 = {
+    const reloadMonthValue = {
       userId: userId,
       year: year,
       month: month,
     };
-    const resultV2 = await getHighlitedDaysV2(sendValueV2);
-    setHighlightedDays(resultV2);
+    const reloadMonth = await getHighlitedDays(reloadMonthValue);
+    setHighlightedDays(reloadMonth);
   };
 
   useEffect(() => {
@@ -107,7 +106,7 @@ const useCalendarComp = () => {
 
     // fetchData();
     onReload(value);
-  }, [userId, value]);
+  }, []);
 
   return {
     onReload,

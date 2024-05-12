@@ -1,7 +1,7 @@
 import { API } from "./const";
 import axios from "axios";
 
-export const getHighlitedDaysV2 = async (value) => {
+export const getHighlitedDays = async (value) => {
   try {
     const response = await axios.post(`${API}/calendar/V2`, value);
     return response.data;
@@ -10,7 +10,7 @@ export const getHighlitedDaysV2 = async (value) => {
   }
 };
 
-export const getDayTasksV2 = async (value) => {
+export const getDayTasks = async (value) => {
   try {
     const response = await axios.post(`${API}/calendar/V2/day`, value);
     return response.data;
@@ -19,7 +19,7 @@ export const getDayTasksV2 = async (value) => {
   }
 };
 
-export const deleteTaskV2 = async (value) => {
+export const deleteTask = async (value) => {
   try {
     const response = await axios.delete(`${API}/calendar/V2/${value}`);
     return response;
@@ -28,7 +28,7 @@ export const deleteTaskV2 = async (value) => {
   }
 };
 
-export const createTaskV2 = async (value) => {
+export const createTask = async (value) => {
   try {
     const response = await axios.post(`${API}/calendar/V2/newTask`, value);
     return response;

@@ -10,22 +10,67 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { registerUser } from "../../api/users";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function SignIn() {
   const navigate = useNavigate();
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const value = {
-      name: data.get("name"),
-      email: data.get("email"),
-      password: data.get("password"),
-    };
 
-    const response = await registerUser(value);
-    console.log(response);
-    if (response) {
-      navigate("/login");
+  const [name, setName] = useState("");
+  const [nameError, setNameError] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+    if (e.target.value.length < 6) {
+      setNameError("Name must be at least 6 characters long");
+    } else if (e.target.value.length > 20) {
+      setNameError("Name must be less than 20 characters long");
+    } else if (!/^[a-zA-Z ]+$/.test(e.target.value)) {
+      setNameError("Name must contain only letters and spaces");
+    } else {
+      setNameError(false);
+    }
+  };
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    if (!/^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/.test(e.target.value)) {
+      setEmailError("Invalid email address");
+    } else {
+      setEmailError(false);
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    if (e.target.value.length < 6) {
+      setPasswordError("Password must be at least 6 characters long");
+    } else if (e.target.value.length > 20) {
+      setPasswordError("Password must be less than 20 characters long");
+    } else if (!/^[a-zA-Z]+$/.test(e.target.value)) {
+      setPasswordError("Password must contain only letters");
+    } else {
+      setPasswordError(false);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!(nameError || emailError || passwordError)) {
+      const value = {
+        name: name,
+        email: email,
+        password: password,
+      };
+
+      const response = await registerUser(value);
+      if (response) {
+        navigate("/login");
+      }
+    } else {
+      alert("Form is invalid! Please check the fields...");
     }
   };
 
@@ -50,35 +95,34 @@ export default function SignIn() {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                autoFocus
-                required
+                label="Name"
                 fullWidth
-                id="name"
-                label="First Name"
-                name="name"
-                autoComplete="name"
+                value={name}
+                onChange={handleNameChange}
+                error={nameError}
+                helperText={nameError}
               />
             </Grid>
 
             <Grid item xs={12}>
               <TextField
-                required
+                label="Email"
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                value={email}
+                onChange={handleEmailChange}
+                error={emailError}
+                helperText={emailError}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                required
-                fullWidth
-                name="password"
                 label="Password"
+                fullWidth
                 type="password"
-                id="password"
-                autoComplete="password"
+                value={password}
+                onChange={handlePasswordChange}
+                error={passwordError}
+                helperText={passwordError}
               />
             </Grid>
           </Grid>
@@ -93,7 +137,7 @@ export default function SignIn() {
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/login" variant="body2">
-                Already have an account? Sign in
+                Have an account already? Sign in
               </Link>
             </Grid>
           </Grid>

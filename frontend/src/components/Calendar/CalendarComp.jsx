@@ -10,7 +10,7 @@ import DayEntryElement from "./DayEntryElement";
 import useCalendarComp from "./useCalendarComp";
 import CreatingTask from "./CreatingTask";
 
-const CalendarCompV2 = () => {
+const CalendarComp = () => {
   const {
     onReload,
     onChange,
@@ -112,4 +112,4 @@ const CalendarCompV2 = () => {
   );
 };
 
-export default CalendarCompV2;
+export default CalendarComp;

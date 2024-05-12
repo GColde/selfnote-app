@@ -2,8 +2,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -13,30 +11,62 @@ import Container from "@mui/material/Container";
 import { loginUser } from "../../api/users";
 import { useNavigate } from "react-router-dom";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
+import { useState } from "react";
 
 export default function SignIn() {
   const navigate = useNavigate();
   const signIn = useSignIn();
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const value = { email: data.get("email"), password: data.get("password") };
 
-    const response = await loginUser(value);
-    // console.log(response);
-    if (response) {
-      const random = signIn({
-        auth: {
-          token: response.token,
-          type: "Bearer",
-        },
-        userState: response._id,
-      });
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    if (!/^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/.test(e.target.value)) {
+      setEmailError("Invalid email address");
+    } else {
+      setEmailError(false);
     }
+  };
 
-    // console.log(response);
-    if (response) {
-      navigate("/");
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    if (e.target.value.length < 6) {
+      setPasswordError("Password must be at least 6 characters long");
+    } else if (e.target.value.length > 20) {
+      setPasswordError("Password must be less than 20 characters long");
+    } else if (!/^[a-zA-Z]+$/.test(e.target.value)) {
+      setPasswordError("Password must contain only letters");
+    } else {
+      setPasswordError(false);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!(emailError || passwordError)) {
+      const value = {
+        email: email,
+        password: password,
+      };
+
+      const response = await loginUser(value);
+      if (response) {
+        signIn({
+          auth: {
+            token: response.token,
+            type: "Bearer",
+          },
+          userState: response._id,
+        });
+        navigate("/");
+      } else {
+        alert("Wrong email or password");
+      }
+    } else {
+      alert("Form is invalid! Please check the fields...");
     }
   };
 
@@ -60,14 +90,14 @@ export default function SignIn() {
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
-            required
             fullWidth
             id="email"
             label="Email Address"
             name="email"
             autoComplete="email"
-            autoFocus
-            value="r@gmail.com"
+            onChange={handleEmailChange}
+            error={emailError}
+            helperText={emailError}
           />
           <TextField
             margin="normal"
@@ -75,15 +105,12 @@ export default function SignIn() {
             fullWidth
             name="password"
             label="Password"
-            // type="password"
-            type="text"
+            type="password"
             id="password"
-            autoComplete="current-password"
-            value="a"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            autoComplete="password"
+            onChange={handlePasswordChange}
+            error={passwordError}
+            helperText={passwordError}
           />
           <Button
             type="submit"

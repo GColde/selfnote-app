@@ -1,7 +1,5 @@
-import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -11,7 +9,7 @@ import Backdrop from "@mui/material/Backdrop";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
-import { createTaskV2 } from "../../api/calendar";
+import { createTask } from "../../api/calendar";
 
 const style = {
   position: "absolute",
@@ -51,7 +49,7 @@ export default function CreatingTask({
       userId,
     };
 
-    await createTaskV2(value);
+    await createTask(value);
 
     reload();
     handleClose();

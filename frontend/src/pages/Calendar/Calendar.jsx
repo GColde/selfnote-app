@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import CalendarCompV2 from "../../components/Calendar/CalendarCompV2";
+import CalendarComp from "../../components/Calendar/CalendarComp";
 
 const Calendar = () => {
   return (
@@ -11,7 +11,7 @@ const Calendar = () => {
         flexWrap="wrap"
       >
         <Box sx={{ width: { xs: "100%", lg: "50%" } }}>
-          <CalendarCompV2 />
+          <CalendarComp />
         </Box>
         <Box sx={{ width: { xs: "100%", lg: "50%" } }}></Box>
       </Box>
