@@ -77,7 +77,7 @@ router.post("/user/login", async (req, res) => {
       }
     );
   } catch (err) {
-    res.status(400).send("Somwhere Error inside");
+    res.status(400).send("Somwhere catch error");
   }
 });
 

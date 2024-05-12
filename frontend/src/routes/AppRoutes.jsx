@@ -1,26 +1,13 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { routes, protectedRoutes, signedInRoutes } from "./consts";
+import { protectedRoutes, unProtectedRoutes } from "./consts";
 
 import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
 
 const AppRoutes = () => {
   const auth = useIsAuthenticated();
+  console.log(auth);
   return (
     <Routes>
-      {routes.map(({ path, Layout, Component }) => {
-        return (
-          <Route
-            key={path}
-            path={path}
-            element={
-              <Layout>
-                <Component />
-              </Layout>
-            }
-          />
-        );
-      })}
-
       {protectedRoutes.map(({ path, Layout, Component }) => {
         return (
           <Route
@@ -28,7 +15,7 @@ const AppRoutes = () => {
             path={path}
             element={
               !auth ? (
-                <Navigate to="/" />
+                <Navigate to="/login" />
               ) : (
                 <Layout>
                   <Component />
@@ -39,7 +26,7 @@ const AppRoutes = () => {
         );
       })}
 
-      {signedInRoutes.map(({ path, Layout, Component }) => {
+      {unProtectedRoutes.map(({ path, Layout, Component }) => {
         return (
           <Route
             key={path}

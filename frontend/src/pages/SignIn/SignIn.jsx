@@ -98,6 +98,7 @@ export default function SignIn() {
             onChange={handleEmailChange}
             error={emailError}
             helperText={emailError}
+            // value={"testas@gmail.com"}
           />
           <TextField
             margin="normal"
@@ -111,6 +112,7 @@ export default function SignIn() {
             onChange={handlePasswordChange}
             error={passwordError}
             helperText={passwordError}
+            // value={"testas"}
           />
           <Button
             type="submit"

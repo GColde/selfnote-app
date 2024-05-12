@@ -12,7 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import FormatListBulletedSharpIcon from "@mui/icons-material/FormatListBulletedSharp";
 import Link from "@mui/material/Link";
 
 function NavigationBar() {
@@ -36,14 +36,16 @@ function NavigationBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <FormatListBulletedSharpIcon
+            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+          />
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             component="a"
             href="#app-bar-with-responsive-menu"
             sx={{
-              mr: 2,
+              mr: 4,
               display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
               fontWeight: 700,
@@ -52,7 +54,7 @@ function NavigationBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            SELFNOTE
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -93,7 +95,6 @@ function NavigationBar() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -110,7 +111,7 @@ function NavigationBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            SELFNOTE
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {navigationBarLinks.map((page) => (
@@ -127,6 +128,7 @@ function NavigationBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
+            <Link href={"/login"} />
             <MenuItem onClick={signOut}>
               <Typography textAlign="center">Logout</Typography>
             </MenuItem>

@@ -12,14 +12,13 @@ export const ROUTES = {
   CALENDAR: "/calendar",
 };
 
-export const routes = [
+export const routes = [];
+export const protectedRoutes = [
   {
     path: ROUTES.HOME,
     Component: Home,
     Layout: BasicLayout,
   },
-];
-export const protectedRoutes = [
   {
     path: ROUTES.CALENDAR,
     Component: Calendar,
@@ -27,7 +26,7 @@ export const protectedRoutes = [
   },
 ];
 
-export const signedInRoutes = [
+export const unProtectedRoutes = [
   {
     path: ROUTES.LOGIN,
     Component: SignIn,
@@ -42,19 +41,11 @@ export const signedInRoutes = [
 
 export const navigationBarLinks = [
   {
-    title: "Home",
+    title: "Food plan",
     path: ROUTES.HOME,
   },
   {
     title: "Calendar",
     path: ROUTES.CALENDAR,
-  },
-  {
-    title: "Login",
-    path: ROUTES.LOGIN,
-  },
-  {
-    title: "Register",
-    path: ROUTES.REGISTER,
   },
 ];
