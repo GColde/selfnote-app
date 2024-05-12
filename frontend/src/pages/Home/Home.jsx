@@ -1,5 +1,12 @@
+import { Box } from "@mui/material";
+import FoodComp from "../../components/Food/FoodComp";
+
 const Home = () => {
-  return <div style={{ color: "red" }}></div>;
+  return (
+    <Box>
+      <FoodComp />
+    </Box>
+  );
 };
 
 export default Home;

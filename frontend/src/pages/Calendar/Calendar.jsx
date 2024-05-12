@@ -10,10 +10,9 @@ const Calendar = () => {
         alignItems="center"
         flexWrap="wrap"
       >
-        <Box sx={{ width: { xs: "100%", lg: "50%" } }}>
+        <Box sx={{ width: { xs: "100%", lg: "100%" } }}>
           <CalendarComp />
         </Box>
-        <Box sx={{ width: { xs: "100%", lg: "50%" } }}></Box>
       </Box>
     </>
   );

@@ -25,64 +25,93 @@ const CalendarComp = () => {
   } = useCalendarComp();
 
   return (
-    <>
-      <CreatingTask
-        userId={userId}
-        props={value}
-        handleOpen={handleOpen}
-        handleClose={handleClose}
-        open={open}
-        reload={() => {
-          onReload(value);
-        }}
-      />
+    <Box
+      display="flex"
+      sx={{
+        flexDirection: { xs: "column" },
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       {
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DateCalendar
-            sx={{ width: 500 }}
-            variant="static"
-            orientation="portrait"
-            value={value}
-            disableFuture
-            onChange={onChange}
-            onMonthChange={onMonthChange}
-            onYearChange={onMonthChange}
-            slots={{
-              day: (props) => {
-                const isSelected =
-                  !props.outsideCurrentMonth &&
-                  highlightedDays.indexOf(props.day.getDate()) >= 0;
+        <Box
+          width="100%"
+          sx={{
+            mt: 4,
+          }}
+        >
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DateCalendar
+              sx={{ width: { xs: "100%", lg: "30%" } }}
+              variant="static"
+              orientation="portrait"
+              value={value}
+              disableFuture
+              onChange={onChange}
+              onMonthChange={onMonthChange}
+              onYearChange={onMonthChange}
+              slots={{
+                day: (props) => {
+                  const isSelected =
+                    !props.outsideCurrentMonth &&
+                    highlightedDays.indexOf(props.day.getDate()) >= 0;
 
-                return (
-                  <Badge
-                    key={props.day.toString()}
-                    overlap="circular"
-                    badgeContent={
-                      isSelected ? <CheckIcon htmlColor="red" /> : undefined
-                    }
-                  >
-                    <PickersDay {...props} />
-                  </Badge>
-                );
-              },
-            }}
-          />
-        </LocalizationProvider>
+                  return (
+                    <Badge
+                      key={props.day.toString()}
+                      overlap="circular"
+                      badgeContent={
+                        isSelected ? <CheckIcon htmlColor="red" /> : undefined
+                      }
+                    >
+                      <PickersDay {...props} />
+                    </Badge>
+                  );
+                },
+              }}
+            />
+            <Box
+              display="flex"
+              flexDirection="row"
+              justifyContent="right"
+              aligncontent="center"
+            ></Box>
+          </LocalizationProvider>
+        </Box>
       }
 
       <Box
         display="flex"
         justifyContent="center"
         aligncontent="center"
-        sx={{ width: "100%" }}
+        sx={{ width: { xs: "100%", lg: "50%" } }}
       >
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} md={12}>
-              <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-                Avatar with text and icon
-              </Typography>
-
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                  mt: 4,
+                  mb: 2,
+                }}
+              >
+                <Typography variant="h6" component="div">
+                  Day exercises:
+                </Typography>
+                <CreatingTask
+                  userId={userId}
+                  props={value}
+                  handleOpen={handleOpen}
+                  handleClose={handleClose}
+                  open={open}
+                  reload={() => {
+                    onReload(value);
+                  }}
+                />
+              </Box>
               <List
                 sx={{
                   width: "100%",
@@ -93,22 +122,33 @@ const CalendarComp = () => {
                   "& ul": { padding: 0 },
                 }}
               >
-                {exercises
-                  ? exercises.map((item) => (
-                      <DayEntryElement
-                        key={item._id}
-                        props={item}
-                        dayId={item._id}
-                        reload={() => onReload(value)}
-                      />
-                    ))
-                  : null}
+                {exercises.length > 0 ? (
+                  exercises.map((item) => (
+                    <DayEntryElement
+                      key={item._id}
+                      props={item}
+                      dayId={item._id}
+                      reload={() => onReload(value)}
+                    />
+                  ))
+                ) : (
+                  <Box
+                    display="flex"
+                    sx={{
+                      flexDirection: { xs: "column" },
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Typography variant="h5">No exercise in here</Typography>
+                  </Box>
+                )}
               </List>
             </Grid>
           </Grid>
         </Box>
       </Box>
-    </>
+    </Box>
   );
 };
 

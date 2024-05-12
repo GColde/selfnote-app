@@ -5,7 +5,7 @@ import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 const useCalendarComp = () => {
   const [value, setValue] = useState(new Date());
   const [highlightedDays, setHighlightedDays] = useState([]);
-  const [exercises, setExercises] = useState();
+  const [exercises, setExercises] = useState([]);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);

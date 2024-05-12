@@ -6,6 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import FolderIcon from "@mui/icons-material/Folder";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteTask } from "../../api/calendar";
+import { Box } from "@mui/material";
 
 const DayEntryElement = ({ props, reload }) => {
   const deleteEntry = async (taskId) => {
@@ -14,25 +15,36 @@ const DayEntryElement = ({ props, reload }) => {
   };
 
   return (
-    <ListItem
-      sx={{ boxShadow: 3, my: 2 }}
-      onClick={() => deleteEntry(props._id)}
-      secondaryAction={
-        <IconButton edge="end" aria-label="delete">
-          <DeleteIcon />
-        </IconButton>
-      }
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+      }}
     >
-      <ListItemAvatar>
-        <Avatar>
-          <FolderIcon />
-        </Avatar>
-      </ListItemAvatar>
-      <ListItemText
-        primary={`${props.task} ID:${props._id} `}
-        // secondary={secondary ? "Secondary text" : null}
-      />
-    </ListItem>
+      <ListItem
+        sx={{
+          boxShadow: 3,
+          my: 2,
+          width: "80%",
+        }}
+        onClick={() => deleteEntry(props._id)}
+        secondaryAction={
+          <IconButton edge="end" aria-label="delete">
+            <DeleteIcon />
+          </IconButton>
+        }
+      >
+        <ListItemAvatar>
+          <Avatar>
+            <FolderIcon />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText
+          primary={`${props.task} ID:${props._id} `}
+          // secondary={secondary ? "Secondary text" : null}
+        />
+      </ListItem>
+    </Box>
   );
 };
 

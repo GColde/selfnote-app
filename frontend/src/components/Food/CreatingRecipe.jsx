@@ -3,13 +3,11 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Backdrop from "@mui/material/Backdrop";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
-import { createTask } from "../../api/calendar";
 
 const style = {
   position: "absolute",
@@ -22,43 +20,15 @@ const style = {
   boxShadow: 24,
 };
 
-export default function CreatingTask({
-  userId,
-  props,
-  handleOpen,
-  handleClose,
-  open,
-  reload,
-}) {
+export default function CreatingRecipe({ handleOpen, handleClose, open }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-
-    const year = props.getFullYear();
-    const month = props.toLocaleString("default", {
-      month: "short",
-    });
-    const day = props.getDate();
-
-    const value = {
-      task: data.get("exercise"),
-      weight: data.get("weight"),
-      year,
-      day,
-      month,
-      userId,
-    };
-
-    await createTask(value);
-
-    reload();
-    handleClose();
   };
 
   return (
     <div>
-      <Button variant="contained" onClick={handleOpen}>
-        New Exercise
+      <Button variant="contained" sx={{ height: 55 }} onClick={handleOpen}>
+        New Recipe
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"

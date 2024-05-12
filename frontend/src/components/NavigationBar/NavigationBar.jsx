@@ -34,7 +34,7 @@ function NavigationBar() {
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Toolbar disableGutters>
           <FormatListBulletedSharpIcon
             sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
@@ -48,7 +48,7 @@ function NavigationBar() {
               mr: 4,
               display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
-              fontWeight: 700,
+              fontWeight: 800,
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
@@ -128,7 +128,6 @@ function NavigationBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Link href={"/login"} />
             <MenuItem onClick={signOut}>
               <Typography textAlign="center">Logout</Typography>
             </MenuItem>
