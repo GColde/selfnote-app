@@ -5,7 +5,7 @@ require("dotenv").config();
 const router = express.Router();
 const client = require("../config/db");
 
-// Retrun days of month component
+// Retrun users recipes
 router.post("", async (req, res) => {
   try {
     const userId = new ObjectId(req.body.userId);
@@ -17,6 +17,35 @@ router.post("", async (req, res) => {
       .toArray();
 
     res.send(data);
+  } catch (err) {
+    return res.status(500).send({ err });
+  }
+});
+
+// Retrun users recipes by time
+router.post("/time", async (req, res) => {
+  try {
+    const userId = new ObjectId(req.body.userId);
+    const time = String(req.body.time);
+    console.log(time);
+    if (time == "Any") {
+      const filter = { userId: new ObjectId(userId) };
+      const data = await client
+        .db("selfnote")
+        .collection("recipes")
+        .find(filter)
+        .toArray();
+      res.send(data);
+    } else {
+      const filter = { userId: new ObjectId(userId), time };
+      const data = await client
+        .db("selfnote")
+        .collection("recipes")
+        .find(filter)
+        .toArray();
+      res.send(data);
+    }
+    // const filter = { userId: new ObjectId(userId), time };
   } catch (err) {
     return res.status(500).send({ err });
   }

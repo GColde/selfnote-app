@@ -9,6 +9,14 @@ export const getRecipes = async (value) => {
     console.log(error);
   }
 };
+export const getRecipesTime = async (value) => {
+  try {
+    const response = await axios.post(`${API}/recipes/time`, value);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // export const getDayTasks = async (value) => {
 //   try {

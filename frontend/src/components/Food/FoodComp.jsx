@@ -2,28 +2,44 @@ import { useState, useEffect } from "react";
 import CreatingRecipe from "./CreatingRecipe";
 import RecipeComp from "./RecipeComp";
 import Typography from "@mui/material/Typography";
-import Selection from "./Selection";
 import { Box } from "@mui/material";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
-import { getRecipes } from "../../api/recipes";
+import { getRecipes, getRecipesTime } from "../../api/recipes";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const FoodComp = () => {
-  const [recipes, setRecipes] = useState(false);
+  const [recipes, setRecipes] = useState([]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const userId = useAuthUser();
 
+  const [time, setTime] = useState("");
+  const handleSelectChange = async (e) => {
+    setTime(e.target.value);
+    const value = {
+      userId: userId,
+      time: e.target.value,
+    };
+    console.log(value);
+    const result = await getRecipesTime(value);
+    setRecipes(result);
+    console.log(result);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const sendValueV2 = {
+        const value = {
           userId: userId,
         };
-        const resultV2 = await getRecipes(sendValueV2);
-        setRecipes(resultV2);
-        console.log(resultV2);
+        const result = await getRecipes(value);
+        setRecipes(result);
+        console.log(result);
       } catch (err) {
         console.log(err);
       }
@@ -44,10 +60,27 @@ const FoodComp = () => {
           sx={{
             my: 4,
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "space-evenly",
           }}
         >
-          <Selection />
+          <Box sx={{ width: { xs: "60%", lg: "40%" } }}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Time</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={time}
+                label="Time"
+                onChange={handleSelectChange}
+              >
+                <MenuItem value={"Any"}>Any</MenuItem>
+                <MenuItem value={"Breakfast"}>Breakfast</MenuItem>
+                <MenuItem value={"Lunch"}>Lunch</MenuItem>
+                <MenuItem value={"Dinner"}>Dinner</MenuItem>
+                <MenuItem value={"Extra"}>Extra</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
           <CreatingRecipe
             handleOpen={handleOpen}
             handleClose={handleClose}
@@ -58,12 +91,12 @@ const FoodComp = () => {
           sx={{
             display: "flex",
             gap: "30px",
-            // justifyContent: "center",
+            justifyContent: "center",
             alignItems: "center",
             flexWrap: "wrap",
           }}
         >
-          {recipes ? (
+          {recipes.length > 0 ? (
             recipes.map((item) => <RecipeComp key={item._id} props={item} />)
           ) : (
             <Box
