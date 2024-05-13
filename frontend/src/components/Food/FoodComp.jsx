@@ -5,10 +5,7 @@ import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { getRecipesTime } from "../../api/recipes";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import Selection from "./Selection";
 
 const FoodComp = () => {
   const [recipes, setRecipes] = useState([]);
@@ -20,13 +17,14 @@ const FoodComp = () => {
 
   const [time, setTime] = useState("Any");
 
+  const menuItems = ["Any", "Breakfast", "Lunch", "Dinner", "Extra"];
+
   const onReload = async () => {
     try {
       const value = {
         userId: userId,
         time: time,
       };
-      console.log(value);
       const result = await getRecipesTime(value);
       setRecipes(result);
     } catch (err) {
@@ -65,22 +63,11 @@ const FoodComp = () => {
           }}
         >
           <Box sx={{ width: { xs: "60%", lg: "40%" } }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Time</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={time}
-                label="Time"
-                onChange={handleSelectChange}
-              >
-                <MenuItem value={"Any"}>Any</MenuItem>
-                <MenuItem value={"Breakfast"}>Breakfast</MenuItem>
-                <MenuItem value={"Lunch"}>Lunch</MenuItem>
-                <MenuItem value={"Dinner"}>Dinner</MenuItem>
-                <MenuItem value={"Extra"}>Extra</MenuItem>
-              </Select>
-            </FormControl>
+            <Selection
+              value={time}
+              onChange={handleSelectChange}
+              menuItems={menuItems}
+            />
           </Box>
           <CreatingRecipe
             handleOpen={handleOpen}

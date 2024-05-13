@@ -81,7 +81,6 @@ router.delete("/:recipeId", async (req, res) => {
   try {
     const { recipeId } = req.params;
     const filter = { _id: new ObjectId(recipeId) };
-    console.log("asd");
     const data = await client
       .db("selfnote")
       .collection("recipes")

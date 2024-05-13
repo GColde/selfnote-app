@@ -53,11 +53,10 @@ export default function CreatingRecipe({
       userId: prop,
     };
 
-    console.log(value);
-
     await createRecipe(value);
 
     reload();
+    handleClose();
   };
 
   return (

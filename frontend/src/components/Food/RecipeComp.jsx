@@ -12,7 +12,6 @@ export default function RecipeComp({ props, reload }) {
   const onDelete = async () => {
     const value = props._id;
     const result = await deleteTask(value);
-    console.log(result);
     reload();
   };
   return (

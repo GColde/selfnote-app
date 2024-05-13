@@ -13,8 +13,6 @@ const useCalendarComp = () => {
 
   const userId = useAuthUser();
 
-  //used
-
   const onReload = async (e) => {
     const year = e.getFullYear();
     const month = e.toLocaleString("default", {
