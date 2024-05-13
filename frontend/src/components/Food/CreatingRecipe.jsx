@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -8,6 +9,11 @@ import Backdrop from "@mui/material/Backdrop";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { createRecipe } from "../../api/recipes";
 
 const style = {
   position: "absolute",
@@ -20,9 +26,38 @@ const style = {
   boxShadow: 24,
 };
 
-export default function CreatingRecipe({ handleOpen, handleClose, open }) {
+export default function CreatingRecipe({
+  handleOpen,
+  handleClose,
+  open,
+  prop,
+  reload,
+}) {
+  const [time, setTime] = useState("Extra");
+
+  const handleSelectChange = async (e) => {
+    setTime(e.target.value);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const data = new FormData(event.currentTarget);
+
+    const value = {
+      name: data.get("name"),
+      time: time,
+      ingredients: data.get("ingredients"),
+      stepOne: data.get("stepOne"),
+      stepTwo: data.get("stepTwo"),
+      stepThree: data.get("stepThree"),
+      userId: prop,
+    };
+
+    console.log(value);
+
+    await createRecipe(value);
+
+    reload();
   };
 
   return (
@@ -67,21 +102,66 @@ export default function CreatingRecipe({ handleOpen, handleClose, open }) {
                     margin="normal"
                     required
                     fullWidth
-                    id="exercise"
-                    label="Exercise name"
-                    name="exercise"
+                    id="name"
+                    label="Recipe Name"
+                    name="name"
                     autoFocus
-                    value="Dumbells"
+                    value="Saltibarsciai"
                   />
                   <TextField
                     margin="normal"
                     required
                     fullWidth
-                    name="weight"
-                    label="Weight"
+                    name="ingredients"
+                    label="Ingredients"
                     type="text"
-                    id="weight"
-                    value="95"
+                    id="ingredients"
+                    value="makaronai, kefyras"
+                  />
+                  <FormControl fullWidth sx={{ mt: 2 }}>
+                    <InputLabel id="demo-simple-select-label">Time</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={time}
+                      label="Time"
+                      onChange={handleSelectChange}
+                    >
+                      <MenuItem value={"Breakfast"}>Breakfast</MenuItem>
+                      <MenuItem value={"Lunch"}>Lunch</MenuItem>
+                      <MenuItem value={"Dinner"}>Dinner</MenuItem>
+                      <MenuItem value={"Extra"}>Extra</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="stepOne"
+                    label="Step one"
+                    type="text"
+                    id="stepOne"
+                    value="bla bla bla"
+                  />
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="stepTwo"
+                    label="Step two"
+                    type="text"
+                    id="stepTwo"
+                    value="bla bla bla"
+                  />
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="stepThree"
+                    label="Step three"
+                    type="text"
+                    id="stepThree"
+                    value="bla bla bla"
                   />
                   <Button
                     type="submit"

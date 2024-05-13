@@ -4,8 +4,17 @@ import CardContent from "@mui/material/CardContent";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Box } from "@mui/material";
+import { deleteTask } from "../../api/recipes";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function RecipeComp({ props }) {
+export default function RecipeComp({ props, reload }) {
+  const onDelete = async () => {
+    const value = props._id;
+    const result = await deleteTask(value);
+    console.log(result);
+    reload();
+  };
   return (
     <Card
       sx={{
@@ -17,8 +26,8 @@ export default function RecipeComp({ props }) {
       <CardHeader
         sx={{ mt: 2 }}
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
+          <IconButton color="primary" aria-label="settings">
+            <MoreVertIcon fontSize="large" />
           </IconButton>
         }
         color="text.primary"
@@ -27,23 +36,13 @@ export default function RecipeComp({ props }) {
 
       <CardContent>
         <Typography sx={{ fontSize: 20 }} color="text.primary" gutterBottom>
-          <Typography
-            component="span"
-            color="text.secondary"
-            sx={{ fontWeight: 500 }}
-            variant="h6"
-          >
+          <Typography component="span" color="text.secondary" variant="h6">
             Time:{" "}
           </Typography>
           {props.time}
         </Typography>
         <Typography sx={{ fontSize: 20, my: 4 }} color="text.primary">
-          <Typography
-            component="span"
-            color="text.secondary"
-            sx={{ fontWeight: 700 }}
-            variant="h5"
-          >
+          <Typography component="span" color="text.secondary" variant="h6">
             Ingredients:
             <br />
           </Typography>
@@ -52,7 +51,7 @@ export default function RecipeComp({ props }) {
         <Typography sx={{ fontSize: 20 }} color="text.primary">
           <Typography
             component="span"
-            color="text.secondary"
+            color="secondary"
             sx={{ fontWeight: 700 }}
             variant="h5"
           >
@@ -64,7 +63,7 @@ export default function RecipeComp({ props }) {
         <Typography sx={{ fontSize: 20 }} color="text.primary">
           <Typography
             component="span"
-            color="text.secondary"
+            color="secondary"
             sx={{ fontWeight: 700 }}
             variant="h5"
           >
@@ -76,7 +75,7 @@ export default function RecipeComp({ props }) {
         <Typography sx={{ fontSize: 20 }} color="text.primary">
           <Typography
             component="span"
-            color="text.secondary"
+            color="secondary"
             sx={{ fontWeight: 700 }}
             variant="h5"
           >
@@ -85,6 +84,17 @@ export default function RecipeComp({ props }) {
           </Typography>
           {props.stepThree}
         </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "Right",
+            alignItems: "center",
+          }}
+        >
+          <IconButton onClick={onDelete} aria-label="delete">
+            <DeleteIcon fontSize="large" color="primary" />
+          </IconButton>
+        </Box>
       </CardContent>
     </Card>
   );

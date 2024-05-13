@@ -4,7 +4,7 @@ import RecipeComp from "./RecipeComp";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
-import { getRecipes, getRecipesTime } from "../../api/recipes";
+import { getRecipesTime } from "../../api/recipes";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -18,33 +18,34 @@ const FoodComp = () => {
 
   const userId = useAuthUser();
 
-  const [time, setTime] = useState("");
+  const [time, setTime] = useState("Any");
+
+  const onReload = async () => {
+    try {
+      const value = {
+        userId: userId,
+        time: time,
+      };
+      console.log(value);
+      const result = await getRecipesTime(value);
+      setRecipes(result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleSelectChange = async (e) => {
     setTime(e.target.value);
     const value = {
       userId: userId,
       time: e.target.value,
     };
-    console.log(value);
     const result = await getRecipesTime(value);
     setRecipes(result);
-    console.log(result);
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const value = {
-          userId: userId,
-        };
-        const result = await getRecipes(value);
-        setRecipes(result);
-        console.log(result);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
+    onReload();
   }, []);
 
   return (
@@ -85,6 +86,10 @@ const FoodComp = () => {
             handleOpen={handleOpen}
             handleClose={handleClose}
             open={open}
+            prop={userId}
+            reload={() => {
+              onReload();
+            }}
           />
         </Box>
         <Box
@@ -97,7 +102,15 @@ const FoodComp = () => {
           }}
         >
           {recipes.length > 0 ? (
-            recipes.map((item) => <RecipeComp key={item._id} props={item} />)
+            recipes.map((item) => (
+              <RecipeComp
+                key={item._id}
+                props={item}
+                reload={() => {
+                  onReload();
+                }}
+              />
+            ))
           ) : (
             <Box
               display="flex"
