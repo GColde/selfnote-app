@@ -36,6 +36,15 @@ export const createRecipe = async (value) => {
   }
 };
 
+export const updateRecipe = async (id, value) => {
+  try {
+    const response = await axios.put(`${API}/recipes/change/${id}`, value);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // export const getDayTasks = async (value) => {
 //   try {
 //     const response = await axios.post(`${API}/calendar/V2/day`, value);

@@ -3,7 +3,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-const Selection = ({ onChange, value, menuItems }) => {
+const Selection = ({ onChange, value, selectionItems }) => {
   //   console.log(value);
   return (
     <FormControl fullWidth>
@@ -15,16 +15,16 @@ const Selection = ({ onChange, value, menuItems }) => {
         label="Time"
         onChange={onChange}
       >
-        {/* {menuItems.map((item) => (
+        {selectionItems.map((item) => (
           <MenuItem key={item} value={item}>
             {item}
           </MenuItem>
-        ))} */}
-        <MenuItem value={"Any"}>Any</MenuItem>
+        ))}
+        {/* <MenuItem value={"Any"}>Any</MenuItem>
         <MenuItem value={"Breakfast"}>Breakfast</MenuItem>
         <MenuItem value={"Lunch"}>Lunch</MenuItem>
         <MenuItem value={"Dinner"}>Dinner</MenuItem>
-        <MenuItem value={"Extra"}>Extra</MenuItem>
+        <MenuItem value={"Extra"}>Extra</MenuItem> */}
       </Select>
     </FormControl>
   );

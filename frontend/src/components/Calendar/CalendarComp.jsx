@@ -8,7 +8,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import DayEntryElement from "./DayEntryElement";
 import useCalendarComp from "./useCalendarComp";
-import CreatingTask from "./CreatingTask";
+import CreateTask from "./CreateTask";
 
 const CalendarComp = () => {
   const {
@@ -101,7 +101,7 @@ const CalendarComp = () => {
                 <Typography variant="h6" component="div">
                   Day exercises:
                 </Typography>
-                <CreatingTask
+                <CreateTask
                   userId={userId}
                   props={value}
                   handleOpen={handleOpen}

@@ -21,7 +21,7 @@ const style = {
   boxShadow: 24,
 };
 
-export default function CreatingTask({
+export default function CreateTask({
   userId,
   props,
   handleOpen,

@@ -43,7 +43,6 @@ function NavigationBar() {
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 4,
               display: { xs: "none", md: "flex" },

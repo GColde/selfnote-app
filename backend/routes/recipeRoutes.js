@@ -76,7 +76,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Deletes task of the day
+// Deletes recipe
 router.delete("/:recipeId", async (req, res) => {
   try {
     const { recipeId } = req.params;
@@ -111,19 +111,49 @@ router.post("/newRecipe", async (req, res) => {
 });
 
 // Return by recipe id
-router.post("/change", async (req, res) => {
+// router.get("/change/:recipeId", async (req, res) => {
+//   try {
+//     const { recipeId } = req.params;
+//     const filter = { _id: new ObjectId(recipeId) };
+//     const data = await client
+//       .db("selfnote")
+//       .collection("recipes")
+//       .findOne(filter);
+
+//     res.send(data);
+//   } catch (err) {
+//     return res.status(500).send({ err });
+//   }
+// });
+
+// {
+//   "name": "Plovas2",
+//   "time": "Dinner",
+//   "ingredients": "Olive oil,Onion,Bell pepper,Fresh parsley",
+//   "stepOne": "Heat oice.",
+//   "stepTwo": "Pour ked.",
+//   "stepThree": " Enjoy!",
+//       "userId": "6640d609d058e2d599e4461d"
+// }
+
+// Update Recipe
+router.put("/change/:recipeId", async (req, res) => {
   try {
-    const userId = new ObjectId(req.body.userId);
-    const filter = { _id: new ObjectId(userId) };
+    const { recipeId } = req.params;
+    const givenBody = req.body;
+    const updateDoc = {
+      $set: {
+        ...givenBody,
+        userId: new ObjectId(givenBody.userId),
+      },
+    };
     const data = await client
       .db("selfnote")
       .collection("recipes")
-      .find(filter)
-      .toArray();
-
+      .updateOne({ _id: new ObjectId(recipeId) }, updateDoc);
     res.send(data);
   } catch (err) {
-    return res.status(500).send({ err });
+    res.status(500).send({ err });
   }
 });
 

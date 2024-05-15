@@ -94,7 +94,6 @@ export default function SignIn() {
             id="email"
             label="Email Address"
             name="email"
-            autoComplete="email"
             onChange={handleEmailChange}
             error={emailError}
             helperText={emailError}
@@ -108,7 +107,6 @@ export default function SignIn() {
             label="Password"
             type="password"
             id="password"
-            autoComplete="password"
             onChange={handlePasswordChange}
             error={passwordError}
             helperText={passwordError}

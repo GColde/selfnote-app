@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import CreatingRecipe from "./CreatingRecipe";
+import CreateRecipe from "./CreateRecipe";
 import RecipeComp from "./RecipeComp";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
@@ -17,7 +17,7 @@ const FoodComp = () => {
 
   const [time, setTime] = useState("Any");
 
-  const menuItems = ["Any", "Breakfast", "Lunch", "Dinner", "Extra"];
+  const selectionItems = ["Any", "Breakfast", "Lunch", "Dinner", "Extra"];
 
   const onReload = async () => {
     try {
@@ -66,10 +66,10 @@ const FoodComp = () => {
             <Selection
               value={time}
               onChange={handleSelectChange}
-              menuItems={menuItems}
+              selectionItems={selectionItems}
             />
           </Box>
-          <CreatingRecipe
+          <CreateRecipe
             handleOpen={handleOpen}
             handleClose={handleClose}
             open={open}

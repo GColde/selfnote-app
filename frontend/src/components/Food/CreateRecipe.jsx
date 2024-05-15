@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
@@ -8,25 +7,29 @@ import Container from "@mui/material/Container";
 import Backdrop from "@mui/material/Backdrop";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import { createRecipe } from "../../api/recipes";
-
+import Selection from "./Selection";
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: { xs: "90%", md: "45%", xl: "30%" },
+  height: { xs: "95%", md: "90%", xl: "90%" },
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  border: "1px solid #000",
+  borderRadius: "1%",
   boxShadow: 24,
 };
 
-export default function CreatingRecipe({
+const styleText = {
+  width: "100%",
+  "& .MuiInputBase-root": {
+    height: { xs: "80px", md: "120px", xl: "120px" },
+  },
+};
+
+export default function CreateRecipe({
   handleOpen,
   handleClose,
   open,
@@ -34,6 +37,7 @@ export default function CreatingRecipe({
   reload,
 }) {
   const [time, setTime] = useState("Extra");
+  const selectionItems = ["Breakfast", "Lunch", "Dinner", "Extra"];
 
   const handleSelectChange = async (e) => {
     setTime(e.target.value);
@@ -42,21 +46,29 @@ export default function CreatingRecipe({
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const name = data.get("name");
+    const ingredients = data.get("ingredients");
+    const stepOne = data.get("stepOne");
+    const stepTwo = data.get("stepTwo");
+    const stepThree = data.get("stepThree");
 
     const value = {
-      name: data.get("name"),
+      name,
       time: time,
-      ingredients: data.get("ingredients"),
-      stepOne: data.get("stepOne"),
-      stepTwo: data.get("stepTwo"),
-      stepThree: data.get("stepThree"),
+      ingredients,
+      stepOne,
+      stepTwo,
+      stepThree,
       userId: prop,
     };
 
-    await createRecipe(value);
-
-    reload();
-    handleClose();
+    if (name && ingredients && stepOne && stepTwo && stepThree) {
+      await createRecipe(value);
+      reload();
+      handleClose();
+    } else {
+      alert("Form is invalid! Please check the fields...");
+    }
   };
 
   return (
@@ -82,15 +94,12 @@ export default function CreatingRecipe({
             <Container component="main" maxWidth="xs">
               <Box
                 sx={{
-                  marginTop: 2,
+                  paddingY: 2,
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
                 }}
               >
-                <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
-                  <FitnessCenterIcon />
-                </Avatar>
                 <Box
                   component="form"
                   onSubmit={handleSubmit}
@@ -99,68 +108,59 @@ export default function CreatingRecipe({
                 >
                   <TextField
                     margin="normal"
-                    required
                     fullWidth
+                    name="name"
                     id="name"
                     label="Recipe Name"
-                    name="name"
-                    autoFocus
-                    value="Saltibarsciai"
                   />
+                  <Selection
+                    value={time}
+                    onChange={handleSelectChange}
+                    selectionItems={selectionItems}
+                  />
+
                   <TextField
+                    sx={styleText}
                     margin="normal"
+                    variant="filled"
+                    multiline
+                    maxRows={4}
                     required
-                    fullWidth
                     name="ingredients"
                     label="Ingredients"
-                    type="text"
                     id="ingredients"
-                    value="makaronai, kefyras"
                   />
-                  <FormControl fullWidth sx={{ mt: 2 }}>
-                    <InputLabel id="demo-simple-select-label">Time</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={time}
-                      label="Time"
-                      onChange={handleSelectChange}
-                    >
-                      <MenuItem value={"Breakfast"}>Breakfast</MenuItem>
-                      <MenuItem value={"Lunch"}>Lunch</MenuItem>
-                      <MenuItem value={"Dinner"}>Dinner</MenuItem>
-                      <MenuItem value={"Extra"}>Extra</MenuItem>
-                    </Select>
-                  </FormControl>
                   <TextField
-                    margin="normal"
+                    sx={styleText}
                     required
-                    fullWidth
+                    multiline
+                    maxRows={4}
+                    variant="filled"
                     name="stepOne"
                     label="Step one"
-                    type="text"
                     id="stepOne"
-                    value="bla bla bla"
                   />
                   <TextField
+                    sx={styleText}
                     margin="normal"
                     required
-                    fullWidth
+                    multiline
+                    maxRows={4}
+                    variant="filled"
                     name="stepTwo"
                     label="Step two"
-                    type="text"
                     id="stepTwo"
-                    value="bla bla bla"
                   />
                   <TextField
+                    sx={styleText}
                     margin="normal"
                     required
-                    fullWidth
+                    multiline
+                    maxRows={4}
+                    variant="filled"
                     name="stepThree"
                     label="Step three"
-                    type="text"
                     id="stepThree"
-                    value="bla bla bla"
                   />
                   <Button
                     type="submit"
