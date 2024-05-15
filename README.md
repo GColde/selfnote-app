@@ -75,16 +75,18 @@ To utilize the nutritionix API, create an account on [nutritionix.com](https://w
 
 Document example:
 
-````json
+```json
 {
   "name": "testsubject",
   "email": "test@gmail.com",
   "password": "sh2b$15005asda/.sda0j/VSasdCl,?Vstl2%5b60Zp$3zfhhs.G"
 }
-
+```
 
 ## Collection: "daylogsV2"
+
 Document example:
+
 ```json
 {
   "task": "Dumbells",
@@ -96,9 +98,12 @@ Document example:
     "$oid": "5881a1b505858974j5850611543e"
   }
 }
+```
 
 ## Collection: "recipes"
+
 Document example:
+
 ```json
 {
   "name": "Paella",
@@ -107,37 +112,34 @@ Document example:
   "stepOne": "Heat olive oil, sauté onions, peppers, garlic. Add salt, pepper, paprika. Stir in diced tomatoes and rice.",
   "stepTwo": "Pour broth, add saffron. Arrange protein (chicken, chorizo, shrimp). Simmer until rice is almost cooked.",
   "stepThree": "Nestle lemon wedges, sprinkle parsley. Cook until socarrat forms. Rest, then serve directly from the pan. Enjoy!",
-    "userId": {
+  "userId": {
     "$oid": "5881a1b505858974j5850611543e"
-  },
+  }
 }
+```
 
-# Build
+## Build
 
 1. **Run the Build Command**
 
-    Use the following command to create an optimized production build:
+   Use the following command to create an optimized production build:
 
    ```bash
    npm run build
+   ```
 
-    This will generate a dist directory containing the production-ready files.
-
+   This will generate a dist directory containing the production-ready files.
 
 2. **Serve the Production Build**
 
-    You can preview the production build locally using a static server. For example, using vite preview:
+   You can preview the production build locally using a static server. For example, using vite preview:
 
-    ```bash
-    npm run preview
+   ```bash
+   npm run preview
+   ```
 
-    This will start a local server and open the production build in your default browser.
+   This will start a local server and open the production build in your default browser.
 
-    By following these steps, you should be able to set up, develop, and build your Vite
-    application successfully. For any issues or further customization, refer to
-    the official Vite documentation or the documentation provided within your project's repository.
-
-
-
-
-````
+   By following these steps, you should be able to set up, develop, and build your Vite
+   application successfully. For any issues or further customization, refer to
+   the official Vite documentation or the documentation provided within your project's repository.

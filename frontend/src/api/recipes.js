@@ -1,14 +1,6 @@
 import { API } from "./const";
 import axios from "axios";
 
-// export const getRecipes = async (value) => {
-//   try {
-//     const response = await axios.post(`${API}/recipes`, value);
-//     return response.data;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 export const getRecipesTime = async (value) => {
   try {
     const response = await axios.post(`${API}/recipes`, value);

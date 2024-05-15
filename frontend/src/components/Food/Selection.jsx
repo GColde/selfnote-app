@@ -5,7 +5,6 @@ import Select from "@mui/material/Select";
 import PropTypes from "prop-types";
 
 const Selection = ({ onChange, value, selectionItems }) => {
-  //   console.log(value);
   return (
     <FormControl fullWidth>
       <InputLabel id="demo-simple-select-label">Time</InputLabel>
