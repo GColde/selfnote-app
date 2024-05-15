@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import CalendarComp from "../../components/Calendar/CalendarComp";
+import NutritionComp from "../../components/Nutrition/NutritionComp";
 
-const Calendar = () => {
+const Nutrition = () => {
   return (
     <>
       <Box
@@ -11,11 +11,11 @@ const Calendar = () => {
         flexWrap="wrap"
       >
         <Box sx={{ width: { xs: "100%", lg: "100%" } }}>
-          <CalendarComp />
+          <NutritionComp />
         </Box>
       </Box>
     </>
   );
 };
 
-export default Calendar;
+export default Nutrition;

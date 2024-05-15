@@ -1,13 +1,11 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { routes, protectedRoutes, signedInRoutes } from "./consts";
-
-import useIsAuthenticated from "react-auth-kit/hooks/useIsAuthenticated";
+import { Routes, Route } from "react-router-dom";
+import { protectedRoutes, signedInRoutes } from "./consts";
+import AuthOutlet from "@auth-kit/react-router/AuthOutlet";
 
 const AppRoutes = () => {
-  const auth = useIsAuthenticated();
   return (
     <Routes>
-      {routes.map(({ path, Layout, Component }) => {
+      {signedInRoutes.map(({ path, Layout, Component }) => {
         return (
           <Route
             key={path}
@@ -20,42 +18,21 @@ const AppRoutes = () => {
           />
         );
       })}
-
-      {protectedRoutes.map(({ path, Layout, Component }) => {
-        return (
-          <Route
-            key={path}
-            path={path}
-            element={
-              !auth ? (
-                <Navigate to="/" />
-              ) : (
+      <Route element={<AuthOutlet fallbackPath="/login" />}>
+        {protectedRoutes.map(({ path, Layout, Component }) => {
+          return (
+            <Route
+              key={path}
+              path={path}
+              element={
                 <Layout>
                   <Component />
                 </Layout>
-              )
-            }
-          />
-        );
-      })}
-
-      {signedInRoutes.map(({ path, Layout, Component }) => {
-        return (
-          <Route
-            key={path}
-            path={path}
-            element={
-              auth ? (
-                <Navigate to="/" />
-              ) : (
-                <Layout>
-                  <Component />
-                </Layout>
-              )
-            }
-          />
-        );
-      })}
+              }
+            />
+          );
+        })}
+      </Route>
     </Routes>
   );
 };
