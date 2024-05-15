@@ -8,6 +8,7 @@ import Backdrop from "@mui/material/Backdrop";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
+import PropTypes from "prop-types";
 import { createTask } from "../../api/calendar";
 
 const style = {
@@ -136,3 +137,14 @@ export default function CreateTask({
     </div>
   );
 }
+
+CreateTask.propTypes = {
+  userId: PropTypes.string.isRequired,
+  props: PropTypes.instanceOf(Date).isRequired,
+  handleOpen: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  reload: PropTypes.func.isRequired,
+  getFullYear: PropTypes.func,
+  getDate: PropTypes.func,
+};

@@ -7,6 +7,7 @@ import Container from "@mui/material/Container";
 import Backdrop from "@mui/material/Backdrop";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
+import PropTypes from "prop-types";
 import { createRecipe } from "../../api/recipes";
 import Selection from "./Selection";
 const style = {
@@ -182,3 +183,11 @@ export default function CreateRecipe({
     </div>
   );
 }
+
+CreateRecipe.propTypes = {
+  handleOpen: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  prop: PropTypes.string.isRequired,
+  reload: PropTypes.func.isRequired,
+};

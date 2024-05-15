@@ -5,13 +5,11 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { useDebounce } from "./useDebounce";
 import { getNutritionAutomplete, getNutrition } from "../../api/nutrition";
 import Typography from "@mui/material/Typography";
-import { CallEndOutlined } from "@mui/icons-material";
 import NutritionCard from "./NutritionCard";
 
 const NutritionComp = () => {
   const [value, setValue] = useState(undefined);
   const [params, setParams] = useState([]);
-  const [ingredient, setIngredient] = useState();
   const [nutrition, setNutrition] = useState();
 
   const debouncedValue = useDebounce(value, 700);
@@ -55,7 +53,6 @@ const NutritionComp = () => {
               setValue(e.target.value);
             }}
             onChange={async (e, value) => {
-              setIngredient(value);
               const result = await getNutrition({ query: value });
               setNutrition(result);
             }}
@@ -75,7 +72,6 @@ const NutritionComp = () => {
           {nutrition != null ? (
             <NutritionCard prop={nutrition} />
           ) : (
-            // <Typography variant="h5">Waiting for ingredient...</Typography>
             <Typography variant="h5">Waiting for ingredient...</Typography>
           )}
         </Box>

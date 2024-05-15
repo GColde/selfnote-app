@@ -11,6 +11,7 @@ import { updateRecipe } from "../../api/recipes";
 import Selection from "./Selection";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import PropTypes from "prop-types";
 
 const style = {
   position: "absolute",
@@ -204,3 +205,20 @@ export default function EditRecipe({
     </div>
   );
 }
+
+EditRecipe.propTypes = {
+  handleOpen: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  prop: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
+    ingredients: PropTypes.string.isRequired,
+    stepOne: PropTypes.string.isRequired,
+    stepTwo: PropTypes.string.isRequired,
+    stepThree: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
+  }).isRequired,
+  reload: PropTypes.func.isRequired,
+};
