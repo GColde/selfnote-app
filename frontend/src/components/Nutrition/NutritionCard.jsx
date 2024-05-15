@@ -5,6 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
+import PropTypes from "prop-types";
 
 const style = {
   display: "inline-block",
@@ -93,3 +94,16 @@ export default function NutritionCard({ prop }) {
     </Card>
   );
 }
+
+NutritionCard.propTypes = {
+  prop: PropTypes.shape({
+    food_name: PropTypes.string.isRequired,
+    photo: PropTypes.shape({
+      highres: PropTypes.string.isRequired,
+    }).isRequired,
+    serving_weight_grams: PropTypes.number.isRequired,
+    nf_calories: PropTypes.number,
+    nf_protein: PropTypes.number,
+    nf_sugars: PropTypes.number,
+  }).isRequired,
+};

@@ -6,6 +6,7 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import List from "@mui/material/List";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import PropTypes from "prop-types";
 import DayEntryElement from "./DayEntryElement";
 import useCalendarComp from "./useCalendarComp";
 import CreateTask from "./CreateTask";
@@ -53,7 +54,6 @@ const CalendarComp = () => {
               slots={{
                 day: (props) => {
                   const isSelected =
-                    !props.outsideCurrentMonth &&
                     highlightedDays.indexOf(props.day.getDate()) >= 0;
 
                   return (
@@ -150,6 +150,20 @@ const CalendarComp = () => {
       </Box>
     </Box>
   );
+};
+
+CalendarComp.propTypes = {
+  onReload: PropTypes.func,
+  onChange: PropTypes.func,
+  onMonthChange: PropTypes.func,
+  highlightedDays: PropTypes.arrayOf(PropTypes.number),
+  exercises: PropTypes.arrayOf(PropTypes.object),
+  value: PropTypes.instanceOf(Date),
+  open: PropTypes.bool,
+  handleOpen: PropTypes.func,
+  handleClose: PropTypes.func,
+  day: PropTypes.func,
+  userId: PropTypes.string,
 };
 
 export default CalendarComp;

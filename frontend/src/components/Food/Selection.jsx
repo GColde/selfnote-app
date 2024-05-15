@@ -2,6 +2,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import PropTypes from "prop-types";
 
 const Selection = ({ onChange, value, selectionItems }) => {
   //   console.log(value);
@@ -20,14 +21,15 @@ const Selection = ({ onChange, value, selectionItems }) => {
             {item}
           </MenuItem>
         ))}
-        {/* <MenuItem value={"Any"}>Any</MenuItem>
-        <MenuItem value={"Breakfast"}>Breakfast</MenuItem>
-        <MenuItem value={"Lunch"}>Lunch</MenuItem>
-        <MenuItem value={"Dinner"}>Dinner</MenuItem>
-        <MenuItem value={"Extra"}>Extra</MenuItem> */}
       </Select>
     </FormControl>
   );
+};
+
+Selection.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  selectionItems: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Selection;

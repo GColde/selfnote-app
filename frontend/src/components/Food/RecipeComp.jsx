@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Box } from "@mui/material";
 import { deleteTask } from "../../api/recipes";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditRecipe from "./EditRecipe";
+import PropTypes from "prop-types";
 
 export default function RecipeComp({ props, reload }) {
   const [open, setOpen] = useState(false);
@@ -17,7 +17,7 @@ export default function RecipeComp({ props, reload }) {
 
   const onDelete = async () => {
     const value = props._id;
-    const result = await deleteTask(value);
+    await deleteTask(value);
     reload();
   };
 
@@ -114,3 +114,16 @@ export default function RecipeComp({ props, reload }) {
     </>
   );
 }
+
+RecipeComp.propTypes = {
+  props: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    time: PropTypes.string.isRequired,
+    ingredients: PropTypes.string.isRequired,
+    stepOne: PropTypes.string.isRequired,
+    stepTwo: PropTypes.string.isRequired,
+    stepThree: PropTypes.string.isRequired,
+  }).isRequired,
+  reload: PropTypes.func.isRequired,
+};

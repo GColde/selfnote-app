@@ -38,9 +38,6 @@ const useCalendarComp = () => {
 
     const reloadDay = await getDayTasks(reloadDayValue);
     setExercises(reloadDay);
-
-    // settinu value kad po deleteinimo reloado nenumestu atgal i siandienos data
-    // setValue(e);
   };
 
   const onChange = async (e) => {
@@ -59,8 +56,6 @@ const useCalendarComp = () => {
 
     const reloadDay = await getDayTasks(reloadDayValue);
     setExercises(reloadDay);
-
-    // settinu value kad po deleteinimo reloado nenumestu atgal i siandienos data
     setValue(e);
   };
 
@@ -80,29 +75,6 @@ const useCalendarComp = () => {
   };
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   try {
-    //     const year = value.getFullYear();
-    //     const month = value.toLocaleString("default", {
-    //       month: "short",
-    //     });
-
-    //     const sendValueV2 = {
-    //       userId: userId,
-    //       year: year,
-    //       month: month,
-    //     };
-
-    //     const resultV2 = await getHighlitedDaysV2(sendValueV2);
-    //     setHighlightedDays(resultV2);
-
-    //     console.log(resultV2);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-
-    // fetchData();
     onReload(value);
   }, []);
 

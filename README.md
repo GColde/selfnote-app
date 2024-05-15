@@ -2,12 +2,10 @@
 
 Project to keep track of your daily life
 
-````
 # Introduction
 
 Build this to have some personal tracker for training performence,
 liked recipes + nutrition checker to have everything in one place (instead of using sticky notes).
-
 
 # Getting Started
 
@@ -29,16 +27,19 @@ Ensure you have the following software installed on your system:
    ```bash
    git clone https://github.com/GColde/selfnote-app
 
+   ```
+
 2. **Navigate to the Project Directory**
 
-    cd selfnote-app
+   cd selfnote-app
 
 3. **Install Dependencies**
 
-    Use npm or yarn to install the necessary dependencies:
-    ```bash
-    npm install
+   Use npm or yarn to install the necessary dependencies:
 
+   ```bash
+   npm install
+   ```
 
 ## 2. Software Dependencies
 
@@ -50,7 +51,6 @@ This project relies on several npm packages. The main dependencies include:
 
 For a complete list of dependencies, refer to the package.json file in the root directory of the project.
 
-
 ## 3. Latest Releases
 
 To stay updated with the latest releases, you can:
@@ -59,21 +59,23 @@ To stay updated with the latest releases, you can:
 -Check the CHANGELOG.md file for a summary of recent changes
 -Follow the release tags on the GitHub repository
 
-
 ## 4. API References
 
-
 ## Database
+
 For the project database, MongoDB is recommended.
 
 ## API Keys
+
 To utilize the nutritionix API, create an account on [nutritionix.com](https://www.nutritionix.com) and provide the necessary keys in `const.js`.
 
 # Example MongoDB Collections and Documents
 
 ## Collection: "users"
+
 Document example:
-```json
+
+````json
 {
   "name": "testsubject",
   "email": "test@gmail.com",
@@ -104,7 +106,7 @@ Document example:
   "ingredients": "Olive oil,Onion,Bell pepper,Garlic,Saffron threads,Chicken,Lemon wedges,Fresh parsley",
   "stepOne": "Heat olive oil, sauté onions, peppers, garlic. Add salt, pepper, paprika. Stir in diced tomatoes and rice.",
   "stepTwo": "Pour broth, add saffron. Arrange protein (chicken, chorizo, shrimp). Simmer until rice is almost cooked.",
-  "stepThree": "Nestle lemon wedges, sprinkle parsley. Cook until socarrat forms. Rest, then serve directly from the pan. Enjoy!"
+  "stepThree": "Nestle lemon wedges, sprinkle parsley. Cook until socarrat forms. Rest, then serve directly from the pan. Enjoy!",
     "userId": {
     "$oid": "5881a1b505858974j5850611543e"
   },
