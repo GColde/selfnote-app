@@ -3,17 +3,21 @@ import { Box } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useDebounce } from "./useDebounce";
-import { getNutrition } from "../../api/nutrition";
+import { getNutritionAutomplete, getNutrition } from "../../api/nutrition";
+import Typography from "@mui/material/Typography";
+import { CallEndOutlined } from "@mui/icons-material";
+import NutritionCard from "./NutritionCard";
 
 const NutritionComp = () => {
   const [value, setValue] = useState(undefined);
   const [params, setParams] = useState([]);
   const [ingredient, setIngredient] = useState();
+  const [nutrition, setNutrition] = useState();
 
   const debouncedValue = useDebounce(value, 700);
 
   const search = useCallback(async () => {
-    const result = await getNutrition(value);
+    const result = await getNutritionAutomplete(value);
     setParams(result);
   }, [debouncedValue]);
 
@@ -50,10 +54,12 @@ const NutritionComp = () => {
             onInputChange={(e) => {
               setValue(e.target.value);
             }}
-            onChange={(e, value) => {
+            onChange={async (e, value) => {
               setIngredient(value);
+              const result = await getNutrition({ query: value });
+              setNutrition(result);
             }}
-            sx={{ width: 300 }}
+            sx={{ width: 500 }}
             renderInput={(params) => <TextField {...params} label="Food" />}
           />
         </Box>
@@ -65,9 +71,15 @@ const NutritionComp = () => {
             alignItems: "center",
             flexWrap: "wrap",
           }}
-        ></Box>
+        >
+          {nutrition != null ? (
+            <NutritionCard prop={nutrition} />
+          ) : (
+            // <Typography variant="h5">Waiting for ingredient...</Typography>
+            <Typography variant="h5">Waiting for ingredient...</Typography>
+          )}
+        </Box>
       </Box>
-      {ingredient}
     </Box>
   );
 };

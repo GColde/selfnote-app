@@ -81,7 +81,7 @@ export default function SignIn() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -97,7 +97,6 @@ export default function SignIn() {
             onChange={handleEmailChange}
             error={emailError}
             helperText={emailError}
-            // value={"testas@gmail.com"}
           />
           <TextField
             margin="normal"
@@ -110,7 +109,6 @@ export default function SignIn() {
             onChange={handlePasswordChange}
             error={passwordError}
             helperText={passwordError}
-            // value={"testas"}
           />
           <Button
             type="submit"

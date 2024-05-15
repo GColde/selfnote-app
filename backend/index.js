@@ -6,8 +6,8 @@ const recipeRoutes = require("./routes/recipeRoutes");
 require("dotenv").config();
 
 const app = express();
-app.use(express.json()); // must
-app.use(cors()); // must
+app.use(express.json());
+app.use(cors());
 const port = process.env.PORT || 8080;
 
 app.use("/", userRoutes);

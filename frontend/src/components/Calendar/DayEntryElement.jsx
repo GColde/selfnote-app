@@ -3,7 +3,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
-import FolderIcon from "@mui/icons-material/Folder";
+import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteTask } from "../../api/calendar";
 import { Box } from "@mui/material";
@@ -36,12 +36,12 @@ const DayEntryElement = ({ props, reload }) => {
       >
         <ListItemAvatar>
           <Avatar>
-            <FolderIcon />
+            <FitnessCenterIcon />
           </Avatar>
         </ListItemAvatar>
         <ListItemText
-          primary={`${props.task} ID:${props._id} `}
-          // secondary={secondary ? "Secondary text" : null}
+          primary={`${props.task}`}
+          secondary={`${props.weight} kg.`}
         />
       </ListItem>
     </Box>

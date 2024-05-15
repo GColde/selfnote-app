@@ -39,19 +39,26 @@ export default function CreateTask({
     });
     const day = props.getDate();
 
-    const value = {
-      task: data.get("exercise"),
-      weight: data.get("weight"),
-      year,
-      day,
-      month,
-      userId,
-    };
+    const task = data.get("exercise");
+    const weight = data.get("weight");
 
-    await createTask(value);
+    if (task && weight) {
+      const value = {
+        task,
+        weight,
+        year,
+        day,
+        month,
+        userId,
+      };
 
-    reload();
-    handleClose();
+      await createTask(value);
+
+      reload();
+      handleClose();
+    } else {
+      alert("Form is invalid! Please check the fields...");
+    }
   };
 
   return (
@@ -99,8 +106,6 @@ export default function CreateTask({
                     id="exercise"
                     label="Exercise name"
                     name="exercise"
-                    autoFocus
-                    value="Dumbells"
                   />
                   <TextField
                     margin="normal"
@@ -110,7 +115,6 @@ export default function CreateTask({
                     label="Weight"
                     type="text"
                     id="weight"
-                    value="95"
                   />
                   <Button
                     type="submit"
