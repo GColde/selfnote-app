@@ -73,6 +73,8 @@ router.post("/user/login", async (req, res) => {
         }
         if (response) {
           res.send({ _id: data._id, token: jwtToken });
+        } else {
+          return res.status(400).send("Bad pass");
         }
       }
     );
